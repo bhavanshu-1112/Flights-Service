@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const { AirplaneService } = require('../services');
 const { SuccessResponse, ErrorResponse} = require('../utils/common');
+// const  AppError = require('../utils/errors/app-error');
 
 //const { response } = require('express');
 
@@ -44,7 +45,31 @@ async function getAirplanes(req, res){
               .json(ErrorResponse);
    }
 }
+/*
+   GET : /airplanes/:id
+   req-body {modelNumber : 'airbus 320', capacity:  200}
+   
+*/
+async function getAirplane(req, res){
+   try {
+      const airplanes = await AirplaneService.getAirplane(req.params.id);
+      SuccessResponse.data = airplanes;
+   //   console.log(airplanes);
+      return res
+             .status(StatusCodes.OK)
+             .json(SuccessResponse);
+   } catch (error) {
+      // console.log(error);
+      ErrorResponse.error = error;
+      return res
+              .status(error.statusCode)
+              .json(ErrorResponse);
+   }
+}
+
+
 module.exports = {
     createAirplane,
-    getAirplanes
+    getAirplanes,
+    getAirplane
 }
