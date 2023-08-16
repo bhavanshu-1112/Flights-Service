@@ -18,6 +18,10 @@ class CrudRepository{
               id: data
             }
          });
+         if(!response){
+          throw new AppError('Not able to find the Airplane', StatusCodes.NOT_FOUND);
+
+         }
          return response;
         
     }
@@ -25,7 +29,7 @@ class CrudRepository{
          const response = this.model.findByPk(data);
      //     console.log(response);
          if(!response){
-          throw new AppError('Not able to find the Airplane', StatusCodes.NOT_FOUND)
+          throw new AppError('Not able to find the Airplane', StatusCodes.NOT_FOUND);
          }
          return response;
         
