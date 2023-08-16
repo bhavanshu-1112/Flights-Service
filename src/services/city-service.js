@@ -38,8 +38,28 @@ async function destroyCity(id){
  
      }
 }
-
+async function updateCity(id, data){
+    try{
+        const response = await cityRepository.update(id, data);
+        return response;
+     }catch(error){
+        if(error.name == 'SequelizeValidationError' || error.name == 'SequelizeUniqueConstraintError') {
+            let explanation = [];
+            error.errors.forEach((err) => {
+                explanation.push(err.message);
+            });
+            throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+        }
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError('The city you requested to  update is not present', error.statusCode);
+        }
+ 
+         throw new AppError('Cannot update', StatusCodes.BAD_REQUEST);
+ 
+     }
+}
 module.exports = {
  createCity,
- destroyCity
+ destroyCity,
+ updateCity
 }
