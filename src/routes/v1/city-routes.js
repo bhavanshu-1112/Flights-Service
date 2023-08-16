@@ -6,4 +6,7 @@ const router = express.Router();
 // /api/v1/cities : POST
 router.post('/', CityMiddlewares.validateCreateRequest, CityController.createCity);
 
+// /api/v1/cities/:id  DELETE request
+router.delete('/:id',  CityController.destroyCity);
+
 module.exports = router;
