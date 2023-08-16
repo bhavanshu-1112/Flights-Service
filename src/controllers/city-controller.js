@@ -6,7 +6,7 @@ const { SuccessResponse, ErrorResponse} = require('../utils/common');
 // how a createCity api loook like ;
 /*
    POST : /cities
-   req-body {name : 'London}
+   req-body {name : 'London'}
    
 */
 async function createCity(req,res){
