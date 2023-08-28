@@ -1,4 +1,5 @@
 'use strict';
+const { SWITCHING_PROTOCOLS } = require('http-status-codes');
 const {
   Model
 } = require('sequelize');
@@ -16,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.City,{
         foreignKey : 'cityId',
         onDelete:'CASCADE',
-        onUpdate:'CASCADE'
+        //onUpdate:'CASCADE'
       })
     }
   }
@@ -37,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     cityId: {
      type: DataTypes.INTEGER,
-     allowNull:false
+    // allowNull:false
     }
   }, {
     sequelize,
